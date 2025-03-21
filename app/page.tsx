@@ -1,7 +1,11 @@
+import { Button } from "@/components/ui/button"
 import { Bitcoin, Zap, Globe, Users, BookOpen, MapPin, Calendar, WineIcon as GlassWine } from "lucide-react"
 import Link from "next/link"
 
 export default function LandingPage() {
+
+
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -16,9 +20,11 @@ export default function LandingPage() {
               Una comunidad mendocina apasionada por la libertad financiera, la descentralización y el futuro de nuestra
               región
             </p>
-            <button className="bg-[#F7931A] hover:bg-[#E68A19] text-white font-bold py-3 px-8 rounded-md shadow-lg hover:shadow-xl transition duration-300">
-              Explora Nuestra Misión
-            </button>
+            <Link href="#quienes-somos" scroll={true}>
+              <button className="bg-[#F7931A] hover:bg-[#E68A19] text-white font-bold py-3 px-8 rounded-md shadow-lg hover:shadow-xl transition duration-300">
+                Explora Nuestra Misión
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -46,7 +52,7 @@ export default function LandingPage() {
               <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#F7931A]/30 to-black/80 z-10"></div>
                 <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center"></div>
-                <div className="absolute inset-0 flex items-center justify-center z-20">
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#F7931A]/30 to-black/80 z-20">
                   <div className="text-center">
                     <GlassWine className="text-white h-16 w-16 mx-auto mb-4" />
                     <p className="text-white text-xl font-bold">Donde el Bitcoin y el vino se encuentran</p>
@@ -59,7 +65,7 @@ export default function LandingPage() {
       </section>
 
       {/* Who We Are Section */}
-      <section className="w-full py-16 md:py-24 bg-gray-900">
+      <section id="quienes-somos" className="w-full py-16 md:py-24 bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
             <div className="md:w-1/2">
@@ -156,14 +162,14 @@ export default function LandingPage() {
                   25
                 </div>
                 <div>
-                  <h3 className="text-white font-bold">Meetup Bitcoin Mendoza</h3>
-                  <p className="text-gray-400">25 de Abril, 19:00 - Café del Centro</p>
+                  <h3 className="text-white font-bold">Meetup Bitcoin Pizza Day Mendoza</h3>
+                  <p className="text-gray-400">22 de Mayo, 19:00 - Café del Centro</p>
                 </div>
               </div>
               <p className="text-gray-300 mb-4">
                 Introducción a Lightning Network y sus aplicaciones para comercios locales.
               </p>
-              <button className="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 rounded-md transition duration-300">
+              <button disabled className="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 rounded-md transition duration-300">
                 Registrarse
               </button>
             </div>
@@ -174,13 +180,13 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <h3 className="text-white font-bold">Bitcoin & Vino</h3>
-                  <p className="text-gray-400">10 de Mayo, 18:00 - Bodega La Central</p>
+                  <p className="text-gray-400">10 de Junio, 18:00 - Bodega La Central</p>
                 </div>
               </div>
               <p className="text-gray-300 mb-4">
                 Cata de vinos y charla sobre cómo la industria vitivinícola puede beneficiarse de Bitcoin.
               </p>
-              <button className="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 rounded-md transition duration-300">
+              <button disabled className="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 rounded-md transition duration-300">
                 Registrarse
               </button>
             </div>
@@ -197,7 +203,7 @@ export default function LandingPage() {
               <p className="text-gray-300 text-lg mb-8">
                 En un país con inflación crónica y restricciones cambiarias, Bitcoin ofrece a los mendocinos una
                 alternativa para proteger el valor de su trabajo. Resistimos la centralización, empoderamos a los
-                individuos y construimos un Mendoza donde el dinero es libre y justo.
+                individuos y construimos una Mendoza donde el dinero es libre y justo.
               </p>
               <div className="bg-[#F7931A] p-6 rounded-lg">
                 <p className="text-white text-xl font-bold italic">
@@ -248,9 +254,11 @@ export default function LandingPage() {
             una economía local descentralizada y resistente a la censura donde los mendocinos tienen control sobre su
             futuro financiero.
           </p>
-          <button className="w-full sm:w-auto bg-black hover:bg-gray-900 text-white font-bold py-3 px-12 rounded-md shadow-lg hover:shadow-xl transition duration-300">
-            Únete a Bitcoin Mendoza
-          </button>
+          <Link target="_blank" href="https://t.me/bitcoinmendoza/">
+            <Button className="w-full sm:w-auto bg-black hover:bg-gray-900 text-white font-bold py-3 px-12 rounded-md shadow-lg hover:shadow-xl transition duration-300">
+              Únete a Bitcoin Mendoza
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -263,10 +271,10 @@ export default function LandingPage() {
               <span className="text-white font-bold text-xl">Bitcoin Mendoza</span>
             </div>
             <nav className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
-              <Link href="#" className="text-gray-400 hover:text-[#F7931A] transition duration-300">
+              <Link href="https://t.me/bitcoinmendoza/" className="text-gray-400 hover:text-[#F7931A] transition duration-300">
                 Contacto
               </Link>
-              <div className="flex space-x-4">
+              {/* <div className="flex space-x-4">
                 <Link href="#" className="text-gray-400 hover:text-[#F7931A] transition duration-300">
                   <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
@@ -284,7 +292,7 @@ export default function LandingPage() {
               </div>
               <Link href="#" className="text-gray-400 hover:text-[#F7931A] transition duration-300">
                 Recursos Bitcoin
-              </Link>
+              </Link> */}
             </nav>
           </div>
           <div className="border-t border-gray-800 pt-8">

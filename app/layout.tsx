@@ -1,15 +1,17 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Ubuntu } from "next/font/google"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
+
+const ubuntu = Ubuntu({ weight: "400", subsets: ["greek"] })
 
 export const metadata: Metadata = {
   title: "Bitcoin Mendoza | Comunidad Bitcoin en la Capital del Vino",
   description:
     "Comunidad Bitcoin en Mendoza, Argentina. Educación, eventos y adopción de Bitcoin en la capital del vino argentino.",
-  generator: 'v0.dev'
+  generator: 'carlit0s@xplorers.ar'
 }
 
 export default function RootLayout({
@@ -20,7 +22,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning={true}
       lang="es" >
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${ubuntu.className} antialiased`}>{children}</body>
     </html >
   )
 }
