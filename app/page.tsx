@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Bitcoin, Zap, Globe, Users, BookOpen, MapPin, Calendar, WineIcon as GlassWine } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 export default function LandingPage() {
@@ -54,8 +55,9 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center"></div>
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#F7931A]/30 to-black/80 z-20">
                   <div className="text-center">
-                    <GlassWine className="text-white h-16 w-16 mx-auto mb-4" />
-                    <p className="text-white text-xl font-bold">Donde el Bitcoin y el vino se encuentran</p>
+                    <Image src={'/images/btc-mendoza.png'} alt="btc mendoza" width={600} height={300} />
+                    {/* <GlassWine className="text-white h-16 w-16 mx-auto mb-4" />
+                    <p className="text-white text-xl font-bold">Donde el Bitcoin y el vino se encuentran</p> */}
                   </div>
                 </div>
               </div>
