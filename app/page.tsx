@@ -49,15 +49,15 @@ export default function LandingPage() {
                 ofreciendo una alternativa descentralizada y resistente a la inflación.
               </p>
             </div>
-            <div className="md:w-1/2 flex justify-center">
+            <div className="w-full md:w-1/2 flex justify-center">
               <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#F7931A]/30 to-black/80 z-10"></div>
                 <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center"></div>
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#F7931A]/30 to-black/80 z-20">
                   <div className="text-center">
-                    <Image src={'/images/btc-mendoza.png'} alt="btc mendoza" width={600} height={300} />
-                    {/* <GlassWine className="text-white h-16 w-16 mx-auto mb-4" />
-                    <p className="text-white text-xl font-bold">Donde el Bitcoin y el vino se encuentran</p> */}
+                    {/* <Image src={'/images/btc-mendoza.png'} alt="btc mendoza" width={600} height={300} /> */}
+                    <GlassWine className="text-white h-16 w-16 mx-auto mb-4" />
+                    <p className="text-white text-xl font-bold">Donde el Bitcoin y el vino se encuentran</p>
                   </div>
                 </div>
               </div>

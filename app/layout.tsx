@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] })
 const ubuntu = Ubuntu({ weight: "400", subsets: ["greek"] })
 
 export const metadata: Metadata = {
-  title: "Bitcoin Mendoza | Comunidad Bitcoin en la Capital del Vino",
+  title: "Bitcoin Mendoza | Comunidad Bitcoin en la Capital del Vino🍷",
   description:
     "Comunidad Bitcoin en Mendoza, Argentina. Educación, eventos y adopción de Bitcoin en la capital del vino argentino.",
   generator: 'carlit0s@xplorers.ar'
