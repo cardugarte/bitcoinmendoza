@@ -1,6 +1,7 @@
 'use client'
 
 import { NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
+import { TriangleAlert } from 'lucide-react';
 import { useState } from 'react';
 
 export default function SignUp() {
@@ -85,7 +86,10 @@ export default function SignUp() {
                   <span className="font-bold text-[#F7931A]">Tu NIP-05:</span> {nip05}
                 </p>
                 <div className="text-gray-300 text-lg">
-                  <span className="font-bold text-[#F7931A]">⚠️ Guarda tu clave privada:</span>
+                  <span className="flex flex-row items-center font-bold text-[#F7931A]">
+                    <TriangleAlert className="text-[#F7931A] mr-2 text-sm" />
+                    Guarda tu clave privada:
+                  </span>
                   <div className="mt-2 bg-gray-800 p-3 rounded-md border border-gray-700 break-words text-sm">
                     {maskPrivateKey(keys.privateKey)}
                   </div>
