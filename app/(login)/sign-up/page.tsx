@@ -46,18 +46,18 @@ export default function SignUp() {
         await registerNip05(username, publicKey);
         setNip05(`${username}@bitcoinmendoza.ar`);
       } else {
-        // Primero verificamos si el username está disponible
+        // First check if username is available
         const isAvailable = await isUsernameAvailable(username);
         if (!isAvailable) {
           throw new Error('Este nombre de usuario ya está registrado.');
         }
 
-        // Solo si el username está disponible, generamos la cuenta
+        // Only if username is available, generate the account
         const signer = NDKPrivateKeySigner.generate();
         publicKey = signer.pubkey;
         await registerNip05(username, publicKey);
 
-        // Solo después de todo exitoso, actualizamos el estado
+        // Only after everything is successful, update the state
         setKeys({ privateKey: signer.privateKey!, publicKey });
         setNip05(`${username}@bitcoinmendoza.ar`);
       }
