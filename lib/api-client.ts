@@ -20,16 +20,14 @@ export const createName = async (name: string, npub: string) => {
 export const getName = async (name: string) => {
   const query = { names: { name } };
   const { names } = await db.query(query);
-  console.log(names, 'names');
   return names;
 };
 
 // Get all name records
 export const getAllNames = async () => {
-  const query = { names: {} };
-  const { names } = await db.query(query);
-  console.log(names, 'names');
-  return names;
+    const query = { names: {} };
+    const { names } = await db.query(query);
+    return names || [];
 };
 
 // Check if username is available

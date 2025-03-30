@@ -4,7 +4,7 @@ import { NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
 import { nip19 } from 'nostr-tools';
 import { TriangleAlert, Loader2, AlertCircle } from 'lucide-react';
 import { useState } from 'react';
-import { createName, getName, getAllNames, isUsernameAvailable } from '@/lib/api-client';
+import { createName, getAllNames, isUsernameAvailable } from '@/lib/api-client';
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
@@ -79,7 +79,6 @@ export default function SignUp() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000); // Reverts to "Copy key" after 2 seconds
     } catch (err) {
-      console.error('Error copying:', err);
       // Fallback for browsers without clipboard API support
       const textarea = document.createElement('textarea');
       textarea.value = keys.privateKey;
