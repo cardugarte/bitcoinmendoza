@@ -1,13 +1,18 @@
+import { id } from '@instantdb/react';
 import db from './db';
 
 // Create or update a name record
 export const createName = async (name: string, npub: string) => {
+  // Check if name already exists
+  const query = { names: {} };
+  const { names } = await db.query(query);
+  const existingName = names.find(n => n.name === name);
+  if (existingName) {
+    throw new Error('Este nombre de usuario ya está registrado.');
+  }
 
-  await db.tx.names[name].update({
-    name,
-    npub
-  });
-
+  // If name doesn't exist, create new record
+  db.transact(db.tx.names[id()].update({ name, npub }));
   return `Name created: ${name} ${npub}`;
 };
 

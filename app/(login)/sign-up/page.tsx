@@ -41,12 +41,9 @@ export default function SignUp() {
   const registerNip05 = async (username: string, publicKey: string) => {
     try {
       const result = await createName(username, publicKey);
-      console.log('Registration successful:', result);
       const names = await getAllNames();
-      console.log(names, 'names');
     } catch (err) {
-      console.error('Error registering NIP-05:', err);
-      setError('Error al registrar el NIP-05. Por favor, intenta nuevamente.');
+      setError(`${err} No se puede registrar este NIP-05.`);
     }
   };
 
