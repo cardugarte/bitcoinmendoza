@@ -138,10 +138,24 @@ export default function SignUp() {
                       setUsername(e.target.value.replace(/[^a-zA-Z0-9]/g, ''));
                     }}
                     placeholder="username"
-                    className="w-full bg-gray-900 text-white border border-gray-700 rounded-md py-3 px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300"
+                    className={`w-full bg-gray-900 text-white border ${inputError ? 'border-red-500' : 'border-gray-700'
+                      } rounded-md py-3 px-4 mb-1 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300`}
                     required
                     disabled={isLoading}
+                    onInvalid={(e) => {
+                      e.preventDefault();
+                      setInputError('Ingresa un nombre de usuario');
+                    }}
+                    onInput={(e) => {
+                      setInputError(null);
+                    }}
                   />
+                  {inputError && (
+                    <div className="flex items-center gap-1 text-red-400 text-sm mb-4 animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>{inputError}</span>
+                    </div>
+                  )}
                 </div>
                 <span className="text-gray-400 mb-4">
                   @bitcoinmendoza.ar
@@ -172,8 +186,10 @@ export default function SignUp() {
                     <Loader2 className="h-5 w-5 animate-spin" />
                     <span>Procesando...</span>
                   </>
+                ) : useExistingAccount ? (
+                  'Obtener NIP-05'
                 ) : (
-                  'Generar NIP-05'
+                  'Crear cuenta con NIP-05'
                 )}
               </button>
             </form>
