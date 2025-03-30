@@ -1,9 +1,12 @@
 'use client'
 
 import { NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
-import { TriangleAlert, Loader2 } from 'lucide-react';
+import { nip19 } from 'nostr-tools';
+import { TriangleAlert, Loader2, AlertCircle } from 'lucide-react';
 import { useState } from 'react';
-import { createName, getName, getAllNames } from '@/lib/api-client';
+import { createName, getName, getAllNames, isUsernameAvailable } from '@/lib/api-client';
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
@@ -12,39 +15,62 @@ export default function SignUp() {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [useExistingAccount, setUseExistingAccount] = useState(false);
+  const [existingNpub, setExistingNpub] = useState('');
+  const [inputError, setInputError] = useState<string | null>(null);
+
+  const convertNpubToHex = (npub: string): string => {
+    try {
+      const { data } = nip19.decode(npub);
+      return data as string;
+    } catch (error) {
+      throw new Error('El formato del npub no es válido');
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
+    setNip05('');
+    setKeys({ privateKey: '', publicKey: '' });
 
     try {
-      const signer = NDKPrivateKeySigner.generate();
-      const privateKey = signer.privateKey!;
-      const publicKey = signer.pubkey;
+      let publicKey;
 
-      const identifier = `${username}@bitcoinmendoza.ar`;
+      if (useExistingAccount) {
+        if (!existingNpub) {
+          throw new Error('Por favor ingresa tu npub');
+        }
+        publicKey = convertNpubToHex(existingNpub);
+        await registerNip05(username, publicKey);
+        setNip05(`${username}@bitcoinmendoza.ar`);
+      } else {
+        // Primero verificamos si el username está disponible
+        const isAvailable = await isUsernameAvailable(username);
+        if (!isAvailable) {
+          throw new Error('Este nombre de usuario ya está registrado.');
+        }
 
-      setKeys({ privateKey, publicKey });
-      setNip05(identifier);
+        // Solo si el username está disponible, generamos la cuenta
+        const signer = NDKPrivateKeySigner.generate();
+        publicKey = signer.pubkey;
+        await registerNip05(username, publicKey);
 
-      // Send to server to register in nostr.json
-      await registerNip05(username, publicKey);
+        // Solo después de todo exitoso, actualizamos el estado
+        setKeys({ privateKey: signer.privateKey!, publicKey });
+        setNip05(`${username}@bitcoinmendoza.ar`);
+      }
     } catch (err) {
-      console.error('Error generating keys:', err);
-      setError('Error al generar las claves. Por favor, intenta nuevamente.');
+      setError(err instanceof Error ? err.message : 'Error al procesar la solicitud. Por favor, intenta nuevamente.');
     } finally {
       setIsLoading(false);
     }
   };
 
   const registerNip05 = async (username: string, publicKey: string) => {
-    try {
-      const result = await createName(username, publicKey);
-      const names = await getAllNames();
-    } catch (err) {
-      setError(`${err} No se puede registrar este NIP-05.`);
-    }
+    const result = await createName(username, publicKey);
+    const names = await getAllNames();
   };
 
   const handleCopyKey = async () => {
@@ -80,24 +106,62 @@ export default function SignUp() {
         <div className="flex flex-col items-center text-center">
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-6">Crea tu perfil Nostr</h1>
           <p className="text-base md:text-xl text-gray-300 max-w-2xl mb-8">
-            Vení a formar parte de nuestra comunidad con un identificador único en @bitcoinmendoza.ar. Esto te va a servir para mostrar que sos de Bitcoin Mendoza en Nostr, y también será tu Address para recibir pagos Lightning en Bitcoin.
+            Vení a formar parte de nuestra comunidad con un identificador único en @bitcoinmendoza.ar
           </p>
           <div className="w-full max-w-md bg-black border border-gray-800 rounded-lg p-6">
             {error && (
-              <div className="mb-4 p-3 bg-red-900/50 border border-red-500 rounded-md text-red-200">
-                {error}
+              <div className="relative min-h-[90px] transition-opacity duration-300">
+                <div className="absolute w-full mb-4 p-3 bg-red-900/50 border border-red-500 rounded-md text-red-200 animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                  {error}
+                </div>
               </div>
             )}
             <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Ingresa tu nombre de usuario"
-                className="w-full bg-gray-900 text-white border border-gray-700 rounded-md py-3 px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300"
-                required
-                disabled={isLoading}
-              />
+              <div className="flex items-center space-x-2 mb-4">
+                <Switch
+                  id="existing-account"
+                  checked={useExistingAccount}
+                  onCheckedChange={setUseExistingAccount}
+                  className="data-[state=checked]:bg-[#F7931A] data-[state=checked]:hover:bg-[#E68A19]"
+                />
+                <Label htmlFor="existing-account" className="text-gray-300">
+                  Usar cuenta existente
+                </Label>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <div className="w-full">
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => {
+                      setUsername(e.target.value.replace(/[^a-zA-Z0-9]/g, ''));
+                    }}
+                    placeholder="username"
+                    className="w-full bg-gray-900 text-white border border-gray-700 rounded-md py-3 px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300"
+                    required
+                    disabled={isLoading}
+                  />
+                </div>
+                <span className="text-gray-400 mb-4">
+                  @bitcoinmendoza.ar
+                </span>
+              </div>
+
+              {useExistingAccount && (
+                <div className="animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                  <input
+                    type="text"
+                    value={existingNpub}
+                    onChange={(e) => setExistingNpub(e.target.value)}
+                    placeholder="Ingresa tu npub"
+                    className="w-full bg-gray-900 text-white border border-gray-700 rounded-md py-3 px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300"
+                    required
+                    disabled={isLoading}
+                  />
+                </div>
+              )}
+
               <button
                 type="submit"
                 className="w-full bg-[#F7931A] hover:bg-[#E68A19] text-white font-bold py-3 px-8 rounded-md shadow-lg hover:shadow-xl transition duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -106,14 +170,15 @@ export default function SignUp() {
                 {isLoading ? (
                   <>
                     <Loader2 className="h-5 w-5 animate-spin" />
-                    <span>Creando tu perfil...</span>
+                    <span>Procesando...</span>
                   </>
                 ) : (
                   'Generar NIP-05'
                 )}
               </button>
             </form>
-            {nip05 && (
+
+            {nip05 && !useExistingAccount && (
               <div className="mt-6 text-left">
                 <p className="text-gray-300 text-lg mb-2">
                   <span className="font-bold text-[#F7931A]">Tu NIP-05:</span> {nip05}
@@ -136,6 +201,17 @@ export default function SignUp() {
                 </div>
                 <p className="text-gray-500 text-sm mt-2 italic">
                   Copia tu clave privada y guárdala en un lugar seguro. No la compartas con nadie.
+                </p>
+              </div>
+            )}
+
+            {nip05 && useExistingAccount && (
+              <div className="mt-6 text-left">
+                <p className="text-gray-300 text-lg mb-2">
+                  <span className="font-bold text-[#F7931A]">Tu NIP-05:</span> {nip05}
+                </p>
+                <p className="text-gray-500 text-sm mt-2 italic">
+                  Tu NIP-05 ha sido registrado exitosamente con tu cuenta existente.
                 </p>
               </div>
             )}

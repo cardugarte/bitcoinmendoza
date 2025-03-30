@@ -29,6 +29,12 @@ export const getAllNames = async () => {
   const query = { names: {} };
   const { names } = await db.query(query);
   console.log(names, 'names');
-  console.log(db.tx.names, 'db.tx.names');
   return names;
+};
+
+// Check if username is available
+export const isUsernameAvailable = async (name: string): Promise<boolean> => {
+  const query = { names: {} };
+  const { names } = await db.query(query);
+  return !names.some(n => n.name === name);
 };
