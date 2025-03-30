@@ -14,6 +14,7 @@ export default function SignUp() {
   const [nip05, setNip05] = useState('');
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [useExistingAccount, setUseExistingAccount] = useState(false);
   const [existingNpub, setExistingNpub] = useState('');
@@ -31,6 +32,7 @@ export default function SignUp() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
     setIsLoading(true);
     setNip05('');
     setKeys({ privateKey: '', publicKey: '' });
@@ -60,6 +62,7 @@ export default function SignUp() {
         // Only after everything is successful, update the state
         setKeys({ privateKey: signer.privateKey!, publicKey });
         setNip05(`${username}@bitcoinmendoza.ar`);
+        setSuccess('¡Usuario creado exitosamente! No olvides guardar tu clave privada.');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al procesar la solicitud. Por favor, intenta nuevamente.');
@@ -112,6 +115,13 @@ export default function SignUp() {
               <div className="relative min-h-[90px] transition-opacity duration-300">
                 <div className="absolute w-full mb-4 p-3 bg-red-900/50 border border-red-500 rounded-md text-red-200 animate-in slide-in-from-top-4 fade-in-50 duration-300">
                   {error}
+                </div>
+              </div>
+            )}
+            {success && (
+              <div className="relative min-h-[90px] transition-opacity duration-300">
+                <div className="absolute w-full mb-4 p-3 bg-green-900/50 border border-green-500 rounded-md text-green-200 animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                  {success}
                 </div>
               </div>
             )}
