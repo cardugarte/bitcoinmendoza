@@ -5,6 +5,10 @@ if (!process.env.NEXT_PUBLIC_INSTANT_APP_ID) {
   throw new Error('NEXT_PUBLIC_INSTANT_APP_ID is not defined in environment variables.');
 }
 
+if (!process.env.NEXT_PUBLIC_INSTANT_API_KEY) {
+  throw new Error('NEXT_PUBLIC_INSTANT_API_KEY is not defined in environment variables.');
+}
+
 const db = init({
   appId: process.env.NEXT_PUBLIC_INSTANT_APP_ID,
   schema: schema
@@ -29,7 +33,8 @@ export const checkConnection = async (maxAttempts = 5) => {
         console.error('Connection error details:', {
           status,
           error,
-          appId: process.env.NEXT_PUBLIC_INSTANT_APP_ID
+          appId: process.env.NEXT_PUBLIC_INSTANT_APP_ID,
+          hasApiKey: !!process.env.NEXT_PUBLIC_INSTANT_API_KEY
         });
         return false;
       }

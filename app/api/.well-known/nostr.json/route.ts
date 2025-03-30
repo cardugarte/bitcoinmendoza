@@ -2,8 +2,26 @@ import { NextResponse } from 'next/server';
 import { checkConnection } from '../../../../lib/db';
 import { createName, getName, getAllNames } from '../../../../lib/db-operations';
 
+// Helper function to validate API key
+const validateApiKey = (req: Request) => {
+  const authHeader = req.headers.get('authorization');
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return false;
+  }
+  const apiKey = authHeader.split(' ')[1];
+  return apiKey === process.env.NEXT_PUBLIC_INSTANT_API_KEY;
+};
+
 export async function POST(req: Request) {
   try {
+    // Validate API key
+    if (!validateApiKey(req)) {
+      return NextResponse.json(
+        { error: 'Invalid or missing API key' },
+        { status: 401 }
+      );
+    }
+
     const { name, npub } = await req.json();
 
     console.log('Received data:', { name, npub });
@@ -40,6 +58,14 @@ export async function POST(req: Request) {
 // Endpoint to get a specific record
 export async function GET(req: Request) {
   try {
+    // Validate API key
+    if (!validateApiKey(req)) {
+      return NextResponse.json(
+        { error: 'Invalid or missing API key' },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(req.url);
     const name = searchParams.get('name');
 
