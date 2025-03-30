@@ -11,6 +11,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.1
         version: 3.10.0(react-hook-form@7.54.2(react@19.0.0))
+      '@instantdb/admin':
+        specifier: ^0.17.32
+        version: 0.17.32
       '@instantdb/react':
         specifier: ^0.17.32
         version: 0.17.32(react@19.0.0)
@@ -321,6 +324,9 @@ packages:
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
     cpu: [x64]
     os: [win32]
+
+  '@instantdb/admin@0.17.32':
+    resolution: {integrity: sha512-L8F6bMuGSbi5wYIno7SYy6p92TZDZDXPmFLS2CDoZTvUiT20h/hpAGBKGBWIJIic8XN+uEag+Y8C4BmHveHp2Q==}
 
   '@instantdb/core@0.17.32':
     resolution: {integrity: sha512-+0EU70BJoTt/xCHnU5FNyetQBBZF5ltzzJeRxo/20W5Yv/mwKtrqRUAlQf8Y8sQO3gou1QkLJqTK3HjwyYb+mQ==}
@@ -2126,6 +2132,10 @@ snapshots:
 
   '@img/sharp-win32-x64@0.33.5':
     optional: true
+
+  '@instantdb/admin@0.17.32':
+    dependencies:
+      '@instantdb/core': 0.17.32
 
   '@instantdb/core@0.17.32':
     dependencies:

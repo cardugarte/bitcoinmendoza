@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@instantdb/admin": "^0.17.32",
     "@instantdb/react": "^0.17.32",
     "@nostr-dev-kit/ndk": "2.13.0-rc2",
     "@radix-ui/react-accordion": "^1.2.2",

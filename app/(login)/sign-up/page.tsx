@@ -3,7 +3,7 @@
 import { NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
 import { TriangleAlert, Loader2 } from 'lucide-react';
 import { useState } from 'react';
-import { createName } from '@/lib/api-client';
+import { createName, getName, getAllNames } from '@/lib/api-client';
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
@@ -42,6 +42,8 @@ export default function SignUp() {
     try {
       const result = await createName(username, publicKey);
       console.log('Registration successful:', result);
+      const names = await getAllNames();
+      console.log(names, 'names');
     } catch (err) {
       console.error('Error registering NIP-05:', err);
       setError('Error al registrar el NIP-05. Por favor, intenta nuevamente.');
