@@ -47,6 +47,7 @@ export default function SignUp() {
         publicKey = convertNpubToHex(existingNpub);
         await registerNip05(username, publicKey);
         setNip05(`${username}@bitcoinmendoza.ar`);
+        setSuccess('¡NIP-05 creado exitosamente para tu cuenta existente!');
       } else {
         // First check if username is available
         const isAvailable = await isUsernameAvailable(username);
