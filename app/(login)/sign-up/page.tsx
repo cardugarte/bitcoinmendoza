@@ -139,7 +139,7 @@ export default function SignUp() {
                     }}
                     placeholder="username"
                     className={`w-full bg-gray-900 text-white border ${inputError ? 'border-red-500' : 'border-gray-700'
-                      } rounded-md py-3 px-4 mb-1 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300`}
+                      } rounded-md py-3 px-4 mb-3 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300`}
                     required
                     disabled={isLoading}
                     onInvalid={(e) => {
@@ -178,7 +178,7 @@ export default function SignUp() {
 
               <button
                 type="submit"
-                className="w-full bg-[#F7931A] hover:bg-[#E68A19] text-white font-bold py-3 px-8 rounded-md shadow-lg hover:shadow-xl transition duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -209,7 +209,7 @@ export default function SignUp() {
                   </div>
                   <button
                     onClick={handleCopyKey}
-                    className="mt-2 bg-[#F7931A] hover:bg-[#E68A19] text-white font-bold py-1 px-4 rounded-md shadow-lg hover:shadow-xl transition duration-300 text-sm"
+                    className="mt-2 btn-primary text-sm"
                     disabled={isLoading}
                   >
                     {copied ? '¡Copiado!' : 'Copiar clave'}
