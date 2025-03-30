@@ -3,6 +3,8 @@
 import { NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
 import { TriangleAlert } from 'lucide-react';
 import { useState } from 'react';
+import db from '../lib/../../../lib/db';
+
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
@@ -26,7 +28,25 @@ export default function SignUp() {
   };
 
   const registerNip05 = async (username: string, publicKey: string) => {
-    console.log(username, publicKey);
+    const body = JSON.stringify({
+      name: username,
+      npub: publicKey,
+    });
+    console.log('body: ', body);
+    // console.log(username, publicKey, 'sign-up');
+    try {
+      const res = await fetch('/api/.well-known/nostr.json', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body,
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.error('Error registering NIP-05:', err);
+    }
   };
 
   const handleCopyKey = async () => {
