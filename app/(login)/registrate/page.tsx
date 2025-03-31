@@ -19,6 +19,7 @@ export default function SignUp() {
   const [useExistingAccount, setUseExistingAccount] = useState(false);
   const [existingNpub, setExistingNpub] = useState('');
   const [inputError, setInputError] = useState<string | null>(null);
+  const [npubError, setNpubError] = useState<string | null>(null);
 
   const convertNpubToHex = (npub: string): string => {
     try {
@@ -179,10 +180,23 @@ export default function SignUp() {
                     value={existingNpub}
                     onChange={(e) => setExistingNpub(e.target.value.toLowerCase())}
                     placeholder="Ingresa tu npub"
-                    className="w-full bg-gray-900 text-white border border-gray-700 rounded-md py-3 px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300"
+                    className={`w-full bg-gray-900 text-white border ${npubError ? 'border-red-500' : 'border-gray-700'} rounded-md py-3 px-4 mb-3 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300`}
                     required
                     disabled={isLoading}
+                    onInvalid={(e) => {
+                      e.preventDefault();
+                      setNpubError('Ingresa tu npub');
+                    }}
+                    onInput={(e) => {
+                      setNpubError(null);
+                    }}
                   />
+                  {npubError && (
+                    <div className="flex items-center gap-1 text-red-400 text-sm mb-4 animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                      <AlertCircle className="h-4 w-4" />
+                      <span>{npubError}</span>
+                    </div>
+                  )}
                 </div>
               )}
 
