@@ -145,7 +145,7 @@ export default function SignUp() {
                     type="text"
                     value={username}
                     onChange={(e) => {
-                      setUsername(e.target.value.replace(/[^a-zA-Z0-9]/g, ''));
+                      setUsername(e.target.value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase());
                     }}
                     placeholder="username"
                     className={`w-full bg-gray-900 text-white border ${inputError ? 'border-red-500' : 'border-gray-700'
@@ -177,7 +177,7 @@ export default function SignUp() {
                   <input
                     type="text"
                     value={existingNpub}
-                    onChange={(e) => setExistingNpub(e.target.value)}
+                    onChange={(e) => setExistingNpub(e.target.value.toLowerCase())}
                     placeholder="Ingresa tu npub"
                     className="w-full bg-gray-900 text-white border border-gray-700 rounded-md py-3 px-4 mb-4 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300"
                     required
