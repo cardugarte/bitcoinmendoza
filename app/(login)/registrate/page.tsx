@@ -73,7 +73,7 @@ export default function SignUp() {
   };
 
   const registerNip05 = async (username: string, publicKey: string) => {
-    const result = await createName(username, publicKey);
+    const result = await createName(username.toLowerCase(), publicKey);
     const names = await getAllNames();
   };
 
