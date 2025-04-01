@@ -1,12 +1,17 @@
 {
-  "name": "my-v0-project",
+  "name": "bitcoinmendoza.ar",
   "version": "0.2.0",
   "private": true,
+  "description": "Bitcoin Mendoza 🍷",
+  "author": "Carlos Dugarte <soycarlosdugarte@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://bitcoinmendoza.ar",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "release": "standard-version"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -65,10 +70,13 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "postcss": "^8",
+    "standard-version": "^9.5.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"
   }
