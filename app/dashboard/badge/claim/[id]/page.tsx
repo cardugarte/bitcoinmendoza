@@ -5,4 +5,4 @@ export default function ClaimPage({ params }: { params: { id: string } }) {
       {/* Contenido del claim */}
     </div>
   )
-} 
+}

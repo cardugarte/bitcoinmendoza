@@ -5,4 +5,4 @@ export default function BadgeList() {
       {/* Contenido del listado */}
     </div>
   )
-} 
+}

@@ -3,15 +3,9 @@
 import { Ubuntu } from 'next/font/google'
 import { useState } from "react"
 import { cn } from "@/lib/utils"
-import { Button } from "@/app/components/ui/button"
-import { Card } from "@/app/components/ui/card"
 import {
-  LayoutDashboard,
-  Menu,
   Bell,
-  User,
   Settings,
-  Plus,
   LogOut
 } from "lucide-react"
 

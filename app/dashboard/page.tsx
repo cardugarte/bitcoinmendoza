@@ -1,6 +1,5 @@
 import { DashboardItem } from "@/app/components/ui/dashboard-item"
 import { CardHeader, CardContent, CardTitle } from "@/app/components/ui/card"
-import { Button } from "@/app/components/ui/button"
 import { Plus, QrCode, List, BadgeInfo } from "lucide-react"
 import Link from "next/link"
 
