@@ -17,7 +17,7 @@ export function DashboardItem({
   return (
     <Card
       className={cn(
-        "bg-gray-900 border-gray-800",
+        "bg-gray-900 border-gray-800 card-hover press-animation p-3",
         className,
         `col-span-${colSpan}`,
         `row-span-${rowSpan}`

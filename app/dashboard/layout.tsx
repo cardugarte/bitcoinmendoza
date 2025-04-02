@@ -8,6 +8,7 @@ import {
   Settings,
   LogOut
 } from "lucide-react"
+import { usePathname } from 'next/navigation'
 
 const ubuntu = Ubuntu({
   weight: ['300', '400', '500', '700'],
@@ -21,6 +22,8 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   const [isCollapsed, setIsCollapsed] = useState(false)
+  const pathname = usePathname()
+  const isCreateBadgePage = pathname === '/dashboard/badge/create'
 
   return (
     <div className={cn("min-h-screen bg-gray-950", ubuntu.className)}>
@@ -49,10 +52,13 @@ export default function DashboardLayout({
       {/* Main Content */}
       <div className="pt-16"> {/* Offset for fixed navbar */}
         <div className="container mx-auto p-4">
-          {/* Grid Container */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-min">
-            {children}
-          </div>
+          {isCreateBadgePage ? (
+            children
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-min">
+              {children}
+            </div>
+          )}
         </div>
       </div>
     </div>

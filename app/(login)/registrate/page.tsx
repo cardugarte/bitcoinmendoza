@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { createName, getAllNames, isUsernameAvailable } from '@/lib/api-client';
 import { Switch } from "@/app/components/ui/switch";
 import { Label } from "@/app/components/ui/label";
+import { Card, CardContent } from "@/app/components/ui/card";
+import { Input } from "@/app/components/ui/input";
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
@@ -105,157 +107,158 @@ export default function SignUp() {
   };
 
   return (
-    <section className="w-full py-16 md:py-24 bg-gray-900">
+    <section className="w-full py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center text-center">
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-6">Crea tu perfil Nostr</h1>
           <p className="text-base md:text-xl text-gray-300 max-w-2xl mb-8">
             Vení a formar parte de nuestra comunidad con un identificador único en @bitcoinmendoza.ar
           </p>
-          <div className="w-full max-w-md bg-black border border-gray-800 rounded-lg p-6">
-            {error && (
-              <div className="relative min-h-[90px] transition-opacity duration-300">
-                <div className="absolute w-full mb-4 p-3 bg-red-900/50 border border-red-500 rounded-md text-red-200 animate-in slide-in-from-top-4 fade-in-50 duration-300">
-                  {error}
+          <Card className="w-full max-w-md bg-black border-gray-800">
+            <CardContent className="p-6">
+              {error && (
+                <div className="relative min-h-[90px] transition-opacity duration-300">
+                  <div className="absolute w-full mb-4 p-3 bg-red-900/50 border border-red-500 rounded-md text-red-200 animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                    {error}
+                  </div>
                 </div>
-              </div>
-            )}
-            {success && (
-              <div className="relative min-h-[90px] transition-opacity duration-300">
-                <div className="absolute w-full mb-4 p-3 bg-green-900/50 border border-green-500 rounded-md text-green-200 animate-in slide-in-from-top-4 fade-in-50 duration-300">
-                  {success}
+              )}
+              {success && (
+                <div className="relative min-h-[90px] transition-opacity duration-300">
+                  <div className="absolute w-full mb-4 p-3 bg-green-900/50 border border-green-500 rounded-md text-green-200 animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                    {success}
+                  </div>
                 </div>
-              </div>
-            )}
-            <form onSubmit={handleSubmit}>
-              <div className="flex items-center space-x-2 mb-4">
-                <Switch
-                  id="existing-account"
-                  checked={useExistingAccount}
-                  onCheckedChange={setUseExistingAccount}
-                  className="data-[state=checked]:bg-[#F7931A] data-[state=checked]:hover:bg-[#E68A19]"
-                />
-                <Label htmlFor="existing-account" className="text-gray-300">
-                  Usar cuenta existente
-                </Label>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <div className="w-full">
-                  <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => {
-                      setUsername(e.target.value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase());
-                    }}
-                    placeholder="username"
-                    className={`w-full bg-gray-900 text-white border ${inputError ? 'border-red-500' : 'border-gray-700'
-                      } rounded-md py-3 px-4 mb-3 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300`}
-                    required
-                    disabled={isLoading}
-                    onInvalid={(e) => {
-                      e.preventDefault();
-                      setInputError('Ingresa un nombre de usuario');
-                    }}
-                    onInput={(e) => {
-                      setInputError(null);
-                    }}
+              )}
+              <form onSubmit={handleSubmit}>
+                <div className="flex items-center space-x-2 mb-4">
+                  <Switch
+                    id="existing-account"
+                    checked={useExistingAccount}
+                    onCheckedChange={setUseExistingAccount}
+                    className="data-[state=checked]:bg-[#F7931A] data-[state=checked]:hover:bg-[#E68A19]"
                   />
-                  {inputError && (
-                    <div className="flex items-center gap-1 text-red-400 text-sm mb-4 animate-in slide-in-from-top-4 fade-in-50 duration-300">
-                      <AlertCircle className="h-4 w-4" />
-                      <span>{inputError}</span>
-                    </div>
-                  )}
+                  <Label htmlFor="existing-account" className="text-gray-300">
+                    Usar cuenta existente
+                  </Label>
                 </div>
-                <span className="text-gray-400 mb-4">
-                  @bitcoinmendoza.ar
-                </span>
-              </div>
 
-              {useExistingAccount && (
-                <div className="animate-in slide-in-from-top-4 fade-in-50 duration-300">
-                  <input
-                    type="text"
-                    value={existingNpub}
-                    onChange={(e) => setExistingNpub(e.target.value.toLowerCase())}
-                    placeholder="Ingresa tu npub"
-                    className={`w-full bg-gray-900 text-white border ${npubError ? 'border-red-500' : 'border-gray-700'} rounded-md py-3 px-4 mb-3 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300`}
-                    required
-                    disabled={isLoading}
-                    onInvalid={(e) => {
-                      e.preventDefault();
-                      setNpubError('Ingresa tu npub');
-                    }}
-                    onInput={(e) => {
-                      setNpubError(null);
-                    }}
-                  />
-                  {npubError && (
-                    <div className="flex items-center gap-1 text-red-400 text-sm mb-4 animate-in slide-in-from-top-4 fade-in-50 duration-300">
-                      <AlertCircle className="h-4 w-4" />
-                      <span>{npubError}</span>
-                    </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-full">
+                    <Input
+                      type="text"
+                      value={username}
+                      onChange={(e) => {
+                        setUsername(e.target.value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase());
+                      }}
+                      placeholder="username"
+                      className={`bg-gray-900 text-white border ${inputError ? 'border-red-500' : 'border-gray-700'} rounded-md py-3 px-4 mb-3 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300`}
+                      required
+                      disabled={isLoading}
+                      onInvalid={(e) => {
+                        e.preventDefault();
+                        setInputError('Ingresa un nombre de usuario');
+                      }}
+                      onInput={(e) => {
+                        setInputError(null);
+                      }}
+                    />
+                    {inputError && (
+                      <div className="flex items-center gap-1 text-red-400 text-sm mb-4 animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                        <AlertCircle className="h-4 w-4" />
+                        <span>{inputError}</span>
+                      </div>
+                    )}
+                  </div>
+                  <span className="text-gray-400 mb-4">
+                    @bitcoinmendoza.ar
+                  </span>
+                </div>
+
+                {useExistingAccount && (
+                  <div className="animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                    <Input
+                      type="text"
+                      value={existingNpub}
+                      onChange={(e) => setExistingNpub(e.target.value.toLowerCase())}
+                      placeholder="Ingresa tu npub"
+                      className={`bg-gray-900 text-white border ${npubError ? 'border-red-500' : 'border-gray-700'} rounded-md py-3 px-4 mb-3 focus:outline-none focus:ring-2 focus:ring-[#F7931A] transition duration-300`}
+                      required
+                      disabled={isLoading}
+                      onInvalid={(e) => {
+                        e.preventDefault();
+                        setNpubError('Ingresa tu npub');
+                      }}
+                      onInput={(e) => {
+                        setNpubError(null);
+                      }}
+                    />
+                    {npubError && (
+                      <div className="flex items-center gap-1 text-red-400 text-sm mb-4 animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                        <AlertCircle className="h-4 w-4" />
+                        <span>{npubError}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  className="btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <span>Procesando...</span>
+                    </>
+                  ) : useExistingAccount ? (
+                    'Obtener NIP-05'
+                  ) : (
+                    'Creá cuenta nueva'
                   )}
+                </button>
+              </form>
+
+              {nip05 && !useExistingAccount && (
+                <div className="mt-6 text-left">
+                  <p className="text-gray-300 text-lg mb-2">
+                    <span className="font-bold text-[#F7931A]">Tu NIP-05:</span> {nip05}
+                  </p>
+                  <div className="text-gray-300 text-lg">
+                    <span className="flex flex-row items-center font-bold text-[#F7931A]">
+                      <TriangleAlert className="text-[#F7931A] mr-2 text-sm" />
+                      Guarda tu clave privada:
+                    </span>
+                    <div className="mt-2 bg-gray-800 p-3 rounded-md border border-gray-700 break-words text-sm">
+                      {maskPrivateKey(keys.privateKey)}
+                    </div>
+                    <button
+                      onClick={handleCopyKey}
+                      className="btn-primary text-sm"
+                      disabled={isLoading}
+                    >
+                      {copied ? '¡Copiado!' : 'Copiar clave'}
+                    </button>
+                  </div>
+                  <p className="text-gray-500 text-sm mt-2 italic">
+                    Copia tu clave privada y guárdala en un lugar seguro. No la compartas con nadie.
+                  </p>
                 </div>
               )}
 
-              <button
-                type="submit"
-                className="btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                    <span>Procesando...</span>
-                  </>
-                ) : useExistingAccount ? (
-                  'Obtener NIP-05'
-                ) : (
-                  'Crear cuenta con NIP-05'
-                )}
-              </button>
-            </form>
-
-            {nip05 && !useExistingAccount && (
-              <div className="mt-6 text-left">
-                <p className="text-gray-300 text-lg mb-2">
-                  <span className="font-bold text-[#F7931A]">Tu NIP-05:</span> {nip05}
-                </p>
-                <div className="text-gray-300 text-lg">
-                  <span className="flex flex-row items-center font-bold text-[#F7931A]">
-                    <TriangleAlert className="text-[#F7931A] mr-2 text-sm" />
-                    Guarda tu clave privada:
-                  </span>
-                  <div className="mt-2 bg-gray-800 p-3 rounded-md border border-gray-700 break-words text-sm">
-                    {maskPrivateKey(keys.privateKey)}
-                  </div>
-                  <button
-                    onClick={handleCopyKey}
-                    className="mt-2 btn-primary text-sm"
-                    disabled={isLoading}
-                  >
-                    {copied ? '¡Copiado!' : 'Copiar clave'}
-                  </button>
+              {nip05 && useExistingAccount && (
+                <div className="mt-6 text-left">
+                  <p className="text-gray-300 text-lg mb-2">
+                    <span className="font-bold text-[#F7931A]">Tu NIP-05:</span> {nip05}
+                  </p>
+                  <p className="text-gray-500 text-sm mt-2 italic">
+                    Tu NIP-05 ha sido configurado exitosamente. Ya puedes usarlo en tu cliente Nostr preferido.
+                  </p>
                 </div>
-                <p className="text-gray-500 text-sm mt-2 italic">
-                  Copia tu clave privada y guárdala en un lugar seguro. No la compartas con nadie.
-                </p>
-              </div>
-            )}
-
-            {nip05 && useExistingAccount && (
-              <div className="mt-6 text-left">
-                <p className="text-gray-300 text-lg mb-2">
-                  <span className="font-bold text-[#F7931A]">Tu NIP-05:</span> {nip05}
-                </p>
-                <p className="text-gray-500 text-sm mt-2 italic">
-                  Tu NIP-05 ha sido registrado exitosamente con tu cuenta existente.
-                </p>
-              </div>
-            )}
-          </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

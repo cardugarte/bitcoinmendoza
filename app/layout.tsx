@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning={true}
       lang="es" >
-      <body className={`${ubuntu.className} antialiased`}>{children}</body>
+      <body className={`${ubuntu.className} antialiased bg-black`}>{children}</body>
     </html >
   )
 }

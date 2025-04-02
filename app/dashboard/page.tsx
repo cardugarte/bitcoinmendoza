@@ -7,7 +7,7 @@ export default function Dashboard() {
   return (
     <>
       {/* Crear Badge */}
-      <DashboardItem colSpan={2} className="hover:border-[#F7931A]/50 transition-colors">
+      <DashboardItem colSpan={2}>
         <Link href="/dashboard/badge/create">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -24,7 +24,7 @@ export default function Dashboard() {
       </DashboardItem>
 
       {/* Dispenser de Badge */}
-      <DashboardItem colSpan={2} className="hover:border-[#F7931A]/50 transition-colors">
+      <DashboardItem colSpan={2}>
         <Link href="/dashboard/badge/claim">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -41,7 +41,7 @@ export default function Dashboard() {
       </DashboardItem>
 
       {/* Badge Detalle */}
-      <DashboardItem colSpan={2} className="hover:border-[#F7931A]/50 transition-colors">
+      <DashboardItem colSpan={2}>
         <Link href="/dashboard/badge/1">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -58,7 +58,7 @@ export default function Dashboard() {
       </DashboardItem>
 
       {/* Listado de Badges */}
-      <DashboardItem colSpan={2} className="hover:border-[#F7931A]/50 transition-colors">
+      <DashboardItem colSpan={2}>
         <Link href="/dashboard/badges">
           <CardHeader>
             <div className="flex items-center justify-between">
