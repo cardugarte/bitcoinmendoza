@@ -5,7 +5,7 @@ import { Input } from "@/app/components/ui/input"
 import { Label } from "@/app/components/ui/label"
 import { Textarea } from "@/app/components/ui/textarea"
 import { Button } from "@/app/components/ui/button"
-import { AlertCircle } from "lucide-react"
+import { AlertCircle, Loader2 } from "lucide-react"
 import { useState } from "react"
 
 export default function CreateBadge() {
@@ -17,10 +17,26 @@ export default function CreateBadge() {
   const [nameError, setNameError] = useState<string | null>(null)
   const [descriptionError, setDescriptionError] = useState<string | null>(null)
   const [imageError, setImageError] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: Implement form submission
+    setError(null)
+    setSuccess(null)
+    setIsLoading(true)
+
+    try {
+      // TODO: Implement form submission
+      // Simulando una petición asíncrona
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      setSuccess('Badge creado exitosamente')
+    } catch (err) {
+      setError('Error al crear el badge. Por favor intenta nuevamente.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -123,52 +139,78 @@ export default function CreateBadge() {
 
           <div className="space-y-2">
             <Label className="text-gray-300">Tags</Label>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               <Button
                 type="button"
                 variant="outline"
-                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800"
+                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
               >
                 t:contributor
               </Button>
               <Button
                 type="button"
                 variant="outline"
-                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800"
+                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
               >
                 t:developer
               </Button>
               <Button
                 type="button"
                 variant="outline"
-                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800"
+                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
               >
                 t:bitcoin
               </Button>
               <Button
                 type="button"
                 variant="outline"
-                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800"
+                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
               >
                 d:core-contributor
               </Button>
               <Button
                 type="button"
                 variant="outline"
-                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800"
+                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
               >
                 t:nostr
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
+              >
+                t:lightning
               </Button>
             </div>
           </div>
 
-          <div className="flex justify-center">
-            <Button
+          <div className="flex flex-col items-center gap-4">
+            {error && (
+              <div className="flex items-center gap-2 text-red-400 text-sm animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                <AlertCircle className="h-4 w-4" />
+                <span>{error}</span>
+              </div>
+            )}
+            {success && (
+              <div className="flex items-center gap-2 text-green-400 text-sm animate-in slide-in-from-top-4 fade-in-50 duration-300">
+                <span>{success}</span>
+              </div>
+            )}
+            <button
               type="submit"
-              className="w-full md:w-1/2 bg-[#F7931A] text-white hover:bg-[#E68A19] transition-colors duration-300"
+              className="w-full md:w-1/2 btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isLoading}
             >
-              Crear Badge
-            </Button>
+              {isLoading ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>Creando badge...</span>
+                </>
+              ) : (
+                'Crear Badge'
+              )}
+            </button>
           </div>
         </form>
       </CardContent>
