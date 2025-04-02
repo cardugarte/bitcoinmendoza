@@ -1,6 +1,6 @@
-import { DashboardItem } from "@/components/ui/dashboard-item"
-import { CardHeader, CardContent, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { DashboardItem } from "@/app/components/ui/dashboard-item"
+import { CardHeader, CardContent, CardTitle } from "@/app/components/ui/card"
+import { Button } from "@/app/components/ui/button"
 import { Plus, QrCode, List, BadgeInfo } from "lucide-react"
 import Link from "next/link"
 
@@ -26,7 +26,7 @@ export default function Dashboard() {
 
       {/* Dispenser de Badge */}
       <DashboardItem colSpan={2} className="hover:border-[#F7931A]/50 transition-colors">
-        <Link href="/dashboard/badge/dispenser">
+        <Link href="/dashboard/badge/claim">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="text-white text-xl">Dispenser de Badge</CardTitle>

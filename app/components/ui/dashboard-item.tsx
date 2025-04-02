@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { Card } from "@/components/ui/card"
+import { Card } from "@/app/components/ui/card"
 
 interface DashboardItemProps {
   children: React.ReactNode

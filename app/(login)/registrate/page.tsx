@@ -5,8 +5,8 @@ import { nip19 } from 'nostr-tools';
 import { TriangleAlert, Loader2, AlertCircle } from 'lucide-react';
 import { useState } from 'react';
 import { createName, getAllNames, isUsernameAvailable } from '@/lib/api-client';
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
+import { Switch } from "@/app/components/ui/switch";
+import { Label } from "@/app/components/ui/label";
 
 export default function SignUp() {
   const [username, setUsername] = useState('');

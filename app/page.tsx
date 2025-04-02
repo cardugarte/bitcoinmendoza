@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/app/components/ui/button"
 import { Bitcoin, Zap, Globe, Users, BookOpen, MapPin, Calendar, WineIcon as GlassWine } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"

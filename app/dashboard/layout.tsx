@@ -3,8 +3,8 @@
 import { Ubuntu } from 'next/font/google'
 import { useState } from "react"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { Button } from "@/app/components/ui/button"
+import { Card } from "@/app/components/ui/card"
 import {
   LayoutDashboard,
   Menu,
