@@ -42,6 +42,7 @@ Seguimos Semantic Versioning (SemVer) para el versionado:
 ### Incremento Automático de Versiones
 
 Los tipos de commits afectan automáticamente la versión:
+
 - `feat:` → incrementa MINOR (1.2.0 → 1.3.0)
 - `fix:` → incrementa PATCH (1.2.0 → 1.2.1)
 - `feat!:` o `BREAKING CHANGE:` → incrementa MAJOR (1.2.0 → 2.0.0)
@@ -55,6 +56,7 @@ pnpm run release
 ```
 
 Esto:
+
 1. Analiza los commits desde la última versión
 2. Incrementa el número de versión según corresponda
 3. Actualiza el CHANGELOG.md
@@ -63,13 +65,15 @@ Esto:
 ## Flujo de Trabajo Recomendado
 
 1. Crear una rama para tu característica/fix:
+
 ```bash
 git checkout -b feature/nombre-caracteristica
 ```
 
-2. Realizar cambios y commits siguiendo las convenciones
+1. Realizar cambios y commits siguiendo las convenciones
 
-3. Actualizar rama con main/master:
+2. Actualizar rama con main/master:
+
 ```bash
 git checkout main
 git pull
@@ -77,6 +81,6 @@ git checkout feature/nombre-caracteristica
 git rebase main
 ```
 
-4. Crear Pull Request
+1. Crear Pull Request
 
-5. Después de la aprobación y merge, considerar si es necesario una nueva versión
+2. Después de la aprobación y merge, considerar si es necesario una nueva versión
