@@ -5,7 +5,7 @@ import { Input } from "@/app/components/ui/input"
 import { Label } from "@/app/components/ui/label"
 import { Textarea } from "@/app/components/ui/textarea"
 import { Button } from "@/app/components/ui/button"
-import { AlertCircle, Loader2 } from "lucide-react"
+import { AlertCircle, Loader2, User, Code, Bitcoin, Star, Link } from "lucide-react"
 import { useState } from "react"
 
 export default function CreateBadge() {
@@ -14,12 +14,34 @@ export default function CreateBadge() {
   const [image, setImage] = useState('')
   const [thumb, setThumb] = useState('')
   const [link, setLink] = useState('')
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [nameError, setNameError] = useState<string | null>(null)
   const [descriptionError, setDescriptionError] = useState<string | null>(null)
   const [imageError, setImageError] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+
+  const tags = [
+    { label: 'Contributor', icon: <User className="h-4 w-4 mr-1" strokeWidth={3} /> },
+    { label: 'Developer', icon: <Code className="h-4 w-4 mr-1" strokeWidth={3} /> },
+    { label: 'Bitcoiner', icon: <Bitcoin className="h-4 w-4 mr-1" strokeWidth={3} /> },
+    { label: 'Core', icon: <Star className="h-4 w-4 mr-1" strokeWidth={3} /> },
+    { label: 'Nostr', icon: <Link className="h-4 w-4 mr-1" strokeWidth={3} /> },
+    { label: 'Lightning', icon: <Bitcoin className="h-4 w-4 mr-1" strokeWidth={3} /> }
+  ];
+
+  const toggleTag = (tag: string) => {
+    setSelectedTags(prev => {
+      if (prev.includes(tag)) {
+        return prev.filter(t => t !== tag)
+      } else {
+        return [...prev, tag]
+      }
+    })
+  }
+
+  const isTagSelected = (tag: string) => selectedTags.includes(tag)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -140,48 +162,20 @@ export default function CreateBadge() {
           <div className="space-y-2">
             <Label className="text-gray-300">Tags</Label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
-              >
-                t:contributor
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
-              >
-                t:developer
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
-              >
-                t:bitcoin
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
-              >
-                d:core-contributor
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
-              >
-                t:nostr
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="bg-gray-900 border-gray-700 text-white hover:bg-gray-800 text-sm py-1.5 px-3 h-auto w-full"
-              >
-                t:lightning
-              </Button>
+              {tags.map(tag => (
+                <Button
+                  key={tag.label}
+                  type="button"
+                  variant="outline"
+                  onClick={() => toggleTag(tag.label)}
+                  className={`text-sm py-1.5 px-3 h-auto w-full transition-all duration-300 ${isTagSelected(tag.label)
+                    ? 'btn-primary'
+                    : 'bg-gray-900 border-gray-700 text-white hover:bg-gray-800 hover:text-[#F7931A]'
+                    } active:bg-gray-800 active:text-white`}
+                >
+                  {tag.icon} {tag.label}
+                </Button>
+              ))}
             </div>
           </div>
 
