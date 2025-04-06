@@ -3,10 +3,11 @@
 import { NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
 import { nip19 } from 'nostr-tools';
 import { TriangleAlert, Loader2, AlertCircle } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createName, getAllNames, isUsernameAvailable } from '@/lib/api-client';
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Button } from '@/components/ui/button';
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
@@ -20,6 +21,7 @@ export default function SignUp() {
   const [existingNpub, setExistingNpub] = useState('');
   const [inputError, setInputError] = useState<string | null>(null);
   const [npubError, setNpubError] = useState<string | null>(null);
+  const [showNostrButton, setShowNostrButton] = useState<boolean>(false);
 
   const convertNpubToHex = (npub: string): string => {
     try {
@@ -103,6 +105,22 @@ export default function SignUp() {
     const end = key.slice(-18);     // Last 18 characters
     return `${start}...${end}`;     // Masks the middle with "..."
   };
+  // Connect with Nostr
+  const connectWithNostr = async () => {
+    console.log('Conectando con Nostr...');
+    if (typeof window !== 'undefined' && window.nostr) {
+      const npub = await window.nostr.getPublicKey();
+      setExistingNpub(nip19.npubEncode(npub));
+      setShowNostrButton(false);
+    }
+  };
+
+  // On mount, check if Nostr is available
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.nostr) {
+      setShowNostrButton(true);
+    }
+  }, []);
 
   return (
     <section className="w-full py-16 md:py-24 bg-gray-900">
@@ -191,6 +209,17 @@ export default function SignUp() {
                       setNpubError(null);
                     }}
                   />
+                  {showNostrButton && (
+                    <Button
+                      className='w-full mb-2'
+                      variant='outline'
+                      size={'sm'}
+                      type='button'
+                      onClick={() => connectWithNostr()}
+                    >
+                      Conectar con Nostr
+                    </Button>
+                  )}
                   {npubError && (
                     <div className="flex items-center gap-1 text-red-400 text-sm mb-4 animate-in slide-in-from-top-4 fade-in-50 duration-300">
                       <AlertCircle className="h-4 w-4" />
