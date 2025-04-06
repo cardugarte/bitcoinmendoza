@@ -1,7 +1,10 @@
 {
-  "name": "my-v0-project",
+  "name": "bitcoinmendoza",
   "version": "0.2.0",
   "private": true,
+  "description": "Bitcoin Mendoza",
+  "author": "Carlos Dugarte",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
