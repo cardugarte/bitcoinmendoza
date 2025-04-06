@@ -47,6 +47,70 @@ button.btn-primary:hover::after {
   }
 }
 
+button.btn-navbar {
+  @apply text-[#F7931A] relative overflow-hidden transition-all duration-300;
+  isolation: isolate;
+}
+
+button.btn-navbar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(50deg,
+    #F7931A 0%,
+    #F7931A 20%,
+    rgba(255, 200, 0, 0.99) 80%,
+    rgba(255, 200, 0, 0.99) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 0 0;
+  transition: all 0.3s ease-in-out;
+  z-index: -1;
+  opacity: 0;
+}
+
+button.btn-navbar:hover {
+  @apply text-white;
+}
+
+button.btn-navbar:hover::after {
+  background-position: 50% 0;
+  opacity: 1;
+}
+
+.card-hover {
+  @apply relative overflow-hidden;
+}
+
+.card-hover::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-r from-[#F7931A] to-[rgba(255,200,0,0.99)] opacity-0 transition-all duration-300;
+  background-size: 200% 100%;
+  background-position: 0 0;
+  z-index: 0;
+}
+
+.card-hover:hover::before {
+  @apply opacity-100;
+}
+
+.card-hover > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card-hover:hover .text-sky-100,
+.card-hover:hover .text-gray-300,
+.card-hover:hover .text-white,
+.card-hover:hover .text-[#F7931A],
+.card-hover:hover svg {
+  color: white;
+}
+
+.press-animation {
+  @apply transition-all duration-300 active:scale-[0.97];
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
