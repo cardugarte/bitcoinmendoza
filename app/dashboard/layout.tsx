@@ -1,14 +1,18 @@
 'use client'
 
 import { Ubuntu } from 'next/font/google'
-import { useState } from "react"
+import { usePathname } from 'next/navigation'
 import { cn } from "@/lib/utils"
+import Link from "next/link"
 import {
   Bell,
   Settings,
-  LogOut
+  LogOut,
+  BadgeCheck,
+  PlusCircle,
+  List,
+  QrCode
 } from "lucide-react"
-import { usePathname } from 'next/navigation'
 
 const ubuntu = Ubuntu({
   weight: ['300', '400', '500', '700'],
@@ -21,9 +25,7 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [isCollapsed, setIsCollapsed] = useState(false)
   const pathname = usePathname()
-  const isCreateBadgePage = pathname === '/dashboard/badge/create'
 
   return (
     <div className={cn("min-h-screen bg-gray-950", ubuntu.className)}>
@@ -32,6 +34,7 @@ export default function DashboardLayout({
         <div className="h-full px-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <h1 className="text-xl font-bold text-white">
+              <BadgeCheck className="inline text-[#F7931A] mr-2" />
               Badge <span className="text-[#F7931A]">Manager</span>
             </h1>
           </div>
@@ -49,17 +52,37 @@ export default function DashboardLayout({
         </div>
       </nav>
 
-      {/* Main Content */}
-      <div className="pt-16"> {/* Offset for fixed navbar */}
-        <div className="container mx-auto p-4">
-          {isCreateBadgePage ? (
-            children
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-min">
-              {children}
-            </div>
-          )}
-        </div>
+      <div className="pt-16 flex"> {/* Offset for fixed navbar */}
+        {/* Sidebar */}
+        <aside className="w-64 fixed left-0 top-16 bottom-0 bg-gray-900 border-r border-gray-800 hidden lg:block">
+          <div className="p-4">
+            <nav className="space-y-2">
+              <Link href="/dashboard" className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition-colors">
+                <BadgeCheck className="h-5 w-5 text-[#F7931A]" />
+                <span>Dashboard</span>
+              </Link>
+              <Link href="/dashboard/badge/create" className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition-colors">
+                <PlusCircle className="h-5 w-5 text-[#F7931A]" />
+                <span>Crear Badge</span>
+              </Link>
+              <Link href="/dashboard/badges" className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition-colors">
+                <List className="h-5 w-5 text-[#F7931A]" />
+                <span>Listado de Badges</span>
+              </Link>
+              <Link href="/dashboard/badge/claim" className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition-colors">
+                <QrCode className="h-5 w-5 text-[#F7931A]" />
+                <span>Dispenser de Badge</span>
+              </Link>
+            </nav>
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 ml-0 lg:ml-64 min-h-screen pb-20 pt-8">
+          <div className="container mx-auto px-4">
+            {children}
+          </div>
+        </main>
       </div>
     </div>
   )

@@ -17,10 +17,10 @@ export function DashboardItem({
   return (
     <Card
       className={cn(
-        "bg-gray-900 border-gray-800 card-hover press-animation p-3",
+        "min-h-[250px] bg-gray-900 border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all",
         className,
-        `col-span-${colSpan}`,
-        `row-span-${rowSpan}`
+        colSpan > 1 ? `col-span-${colSpan}` : "",
+        rowSpan > 1 ? `row-span-${rowSpan}` : ""
       )}
     >
       {children}
