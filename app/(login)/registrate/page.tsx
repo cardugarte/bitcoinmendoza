@@ -16,7 +16,7 @@ export default function SignUp() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [useExistingAccount, setUseExistingAccount] = useState(false);
+  const [useExistingAccount, setUseExistingAccount] = useState(true);
   const [existingNpub, setExistingNpub] = useState('');
   const [inputError, setInputError] = useState<string | null>(null);
   const [npubError, setNpubError] = useState<string | null>(null);
