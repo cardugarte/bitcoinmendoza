@@ -213,7 +213,7 @@ export default function SignUp() {
                     <Button
                       className='w-full mb-2'
                       variant='outline'
-                      size={'sm'}
+                      size={'lg'}
                       type='button'
                       onClick={() => connectWithNostr()}
                     >
