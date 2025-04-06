@@ -4,7 +4,11 @@ import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import BadgeDispenser from "@/components/ui/BadgeDispenser"
 
-export default function ClaimPage({ params }: { params: { id: string } }) {
+type Params = {
+  id: string;
+};
+
+export default function ClaimPage({ params }: { params: Params }) {
   const router = useRouter()
 
   useEffect(() => {
