@@ -67,11 +67,11 @@ export function EventItem({
                   : "bg-gray-800 hover:bg-gray-700 text-white cursor-not-allowed"
               )}
             >
-              {isActive ? "Registrarse" : "Evento Finalizado"}
+              {isActive ? "Registrarse" : "Próximamente"}
             </button>
           </div>
         </Link>
       </div>
     </Card>
   )
-} 
+}

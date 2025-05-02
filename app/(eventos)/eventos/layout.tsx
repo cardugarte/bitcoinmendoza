@@ -29,14 +29,14 @@ export default function EventosLayout({
                 <CalendarDays className="h-5 w-5 text-[#F7931A]" />
                 <span>Eventos</span>
               </Link>
-              <Link href="/eventos/crear" className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition-colors">
+              {/* <Link href="/eventos/crear" className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition-colors">
                 <PlusCircle className="h-5 w-5 text-[#F7931A]" />
                 <span>Crear Evento</span>
               </Link>
               <Link href="/eventos/lista" className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md transition-colors">
                 <ListIcon className="h-5 w-5 text-[#F7931A]" />
                 <span>Lista de Eventos</span>
-              </Link>
+              </Link> */}
             </nav>
           </div>
         </aside>
